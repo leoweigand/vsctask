@@ -7,6 +7,16 @@ stuck inside `.vscode/tasks.json` where only the editor can see it. This tool
 reads that file, resolves the variables and dependencies the way VS Code
 would, and runs the result in your terminal.
 
+It handles JSONC, `shell` and `process` tasks, VS Code's quoting rules,
+per-platform `options`, and most `${variables}`. Provider tasks like `npm` or
+`gulp` come from editor extensions, so those it can't do.
+
+## The CLI
+
+```bash
+cargo build --release
+```
+
 ```
 vsctask list          # what's in the file
 vsctask show <label>  # resolved command, cwd and env
@@ -16,16 +26,27 @@ vsctask run <label>   # run it, dependencies first
 ```
 
 `list`, `show` and `plan` take `--json`, which is also the seam for building
-other frontends on top. There's one included: a Herdr
-plugin that pops up an `fzf` picker and runs the chosen task in a pane
-(`herdr-plugin.toml`), plus a small zsh function in `contrib/`.
+other frontends on top. A small zsh function lives in `contrib/`.
 
-It handles JSONC, `shell` and `process` tasks, VS Code's quoting rules,
-per-platform `options`, and most `${variables}`. Provider tasks like `npm` or
-`gulp` come from editor extensions, so those it can't do.
+## The Herdr plugin
+
+The repo doubles as a Herdr plugin: an `fzf` picker in a popup that runs the
+chosen task in a pane. It needs `fzf` on the PATH. Build, link, bind a key:
 
 ```bash
 cargo build --release
+herdr plugin link /path/to/vsctask
 ```
+
+```toml
+# ~/.config/herdr/config.toml
+[[keys.command]]
+key = "prefix+t"
+type = "plugin_action"
+command = "vsctask.pick"
+description = "run a task"
+```
+
+Then `herdr server reload-config` and press `prefix+t` in a pane.
 
 That's it, really.
