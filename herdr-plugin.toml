@@ -1,0 +1,30 @@
+id = "vsctask"
+name = "vsctask"
+version = "0.1.0"
+min_herdr_version = "0.7.4"
+platforms = ["macos", "linux"]
+description = "Pick a VS Code tasks.json task in a popup and run it in a pane."
+
+# Bound to a key in config.toml. Runs as an action so that Herdr hands it the
+# focused pane in HERDR_PLUGIN_CONTEXT_JSON; a popup entrypoint gets no context
+# of its own, so the action captures it and passes it on.
+[[actions]]
+id = "pick"
+title = "vsctask: run a task"
+contexts = ["pane", "workspace"]
+command = ["./target/release/vsctask", "herdr", "pick"]
+
+# Opened by the `pick` action, never bound directly.
+[[panes]]
+id = "picker"
+title = "run a task"
+placement = "popup"
+width = "70%"
+height = "60%"
+command = ["./target/release/vsctask", "herdr", "picker"]
+
+# Diagnostic: reports the PATH and tools a plugin entrypoint actually sees.
+[[actions]]
+id = "doctor"
+title = "vsctask: check plugin environment"
+command = ["./target/release/vsctask", "herdr", "doctor"]

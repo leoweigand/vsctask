@@ -1,0 +1,49 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    // cargo is not on the login PATH here, so spell it out.
+    {
+      "label": "build",
+      "type": "shell",
+      "command": "${userHome}/.cargo/bin/cargo build --release",
+      "problemMatcher": []
+    },
+    {
+      "label": "test",
+      "type": "shell",
+      "command": "${userHome}/.cargo/bin/cargo test",
+      "problemMatcher": []
+    },
+    {
+      "label": "clippy",
+      "type": "shell",
+      "command": "${userHome}/.cargo/bin/cargo clippy --all-targets",
+      "problemMatcher": []
+    },
+    {
+      "label": "watch",
+      "type": "shell",
+      "command": "${userHome}/.cargo/bin/cargo watch -x check",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "install",
+      "type": "shell",
+      "command": "${userHome}/.cargo/bin/cargo install --path .",
+      "problemMatcher": []
+    },
+    {
+      "label": "relink plugin",
+      "type": "shell",
+      "command": "herdr plugin unlink vsctask; herdr plugin link ${workspaceFolder} && herdr server reload-config",
+      "problemMatcher": []
+    },
+    {
+      "label": "check",
+      "dependsOn": ["build", "test", "clippy"],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    }
+  ]
+}
