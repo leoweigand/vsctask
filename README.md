@@ -50,3 +50,7 @@ description = "run a task"
 Then `herdr server reload-config` and press `prefix+t` in a pane.
 
 That's it, really.
+
+## Licence
+
+MIT. See [LICENSE](LICENSE).

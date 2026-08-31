@@ -2,6 +2,9 @@
 name = "vsctask"
 version = "0.1.0"
 edition = "2024"
+license = "MIT"
+description = "Run VS Code tasks.json tasks outside VS Code"
+repository = "https://github.com/leoweigand/vsctask"
 
 [dependencies]
 anyhow = "1.0.104"

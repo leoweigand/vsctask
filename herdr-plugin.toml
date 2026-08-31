@@ -5,6 +5,11 @@ min_herdr_version = "0.7.4"
 platforms = ["macos", "linux"]
 description = "Pick a VS Code tasks.json task in a popup and run it in a pane."
 
+# Runs during `herdr plugin install` from GitHub. `plugin link` skips this;
+# build the working tree yourself.
+[[build]]
+command = ["cargo", "build", "--release"]
+
 # Bound to a key in config.toml. Runs as an action so that Herdr hands it the
 # focused pane in HERDR_PLUGIN_CONTEXT_JSON; a popup entrypoint gets no context
 # of its own, so the action captures it and passes it on.
