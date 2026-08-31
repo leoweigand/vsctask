@@ -31,12 +31,15 @@ other frontends on top. A small zsh function lives in `contrib/`.
 ## The Herdr plugin
 
 The repo doubles as a Herdr plugin: an `fzf` picker in a popup that runs the
-chosen task in a pane. It needs `fzf` on the PATH. Build, link, bind a key:
+chosen task in a pane. It needs `fzf` on the PATH, and Rust to build. Install
+it straight from GitHub, then bind a key:
 
 ```bash
-cargo build --release
-herdr plugin link /path/to/vsctask
+herdr plugin install leoweigand/vsctask
 ```
+
+(For hacking on it, clone and `herdr plugin link /path/to/vsctask` instead —
+link skips the build step, so run `cargo build --release` yourself.)
 
 ```toml
 # ~/.config/herdr/config.toml
